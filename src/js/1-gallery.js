@@ -1,6 +1,5 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-
 const images = [
   {
     preview:
@@ -66,25 +65,28 @@ const images = [
     description: 'Lighthouse Coast Sea',
   },
 ];
-
-// Створення розмітки
-const galleryContainer = document.querySelector('.gallery');
-const markup = images
-  .map(
-    ({ preview, original, description }) => `
-    <li class="gallery-item">
-      <a class="gallery-link" href="${original}">
-        <img class="gallery-image" src="${preview}" alt="${description}" />
-      </a>
-    </li>`
-  )
-  .join('');
-
-galleryContainer.innerHTML = markup;
-
-// Ініціалізація SimpleLightbox
+const container = document.querySelector('.gallery');
+function imageTemplate({ preview, original, description }) {
+  return `<li class="gallery-item">
+  <a class="gallery-link" href="${original}">
+    <img
+      class="gallery-image"
+      src="${preview}"
+      alt="${description}"
+    />
+  </a>
+</li>`;
+}
+function galleryTemplete(array) {
+  return array.map(imageTemplate).join('');
+}
+function renderGallery(arr) {
+  const markup = galleryTemplete(arr);
+  container.innerHTML = markup;
+}
+renderGallery(images);
 const lightbox = new SimpleLightbox('.gallery a', {
+  captions: true,
   captionsData: 'alt',
   captionDelay: 250,
-  captionPosition: 'bottom',
 });
