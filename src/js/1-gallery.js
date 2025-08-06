@@ -1,3 +1,6 @@
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
+
 const images = [
   {
     preview:
@@ -63,7 +66,9 @@ const images = [
     description: "Lighthouse Coast Sea",
   },
 ];
+
 const container = document.querySelector(".gallery");
+
 function imageTemplate({ preview, original, description }) {
   return `<li class="gallery-item">
   <a class="gallery-link" href="${original}">
@@ -75,14 +80,18 @@ function imageTemplate({ preview, original, description }) {
   </a>
 </li>`;
 }
+
 function galleryTemplete(array) {
   return array.map(imageTemplate).join("");
 }
+
 function renderGallery(arr) {
   const markup = galleryTemplete(arr);
   container.innerHTML = markup;
 }
+
 renderGallery(images);
+
 const lightbox = new SimpleLightbox(".gallery a", {
   captions: true,
   captionsData: "alt",
